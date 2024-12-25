@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅🎉 Clic me</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Obtener el nombre de la URL si existe
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+
+            // Función para mostrar el modal
+            const showModal = () => {
+                Swal.fire({
+                    title: '¡Bienvenido!',
+                    text: 'Por favor, ingresa tu nombre:',
+                    input: 'text',
+                    inputPlaceholder: 'Escribe tu nombre aquí',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar',
+                    preConfirm: (value) => {
+                        if (!value || value.trim() === '') {
+                            Swal.showValidationMessage('El nombre es obligatorio.');
+                        } else {
+                            return value.trim();
+                        }
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const userName = result.value;
+                        window.location.href = `?name=${encodeURIComponent(userName)}`;
+                    }
+                });
+            };
+
+            // Validar si el nombre es válido; de lo contrario, mostrar el modal
+            if (!name || name.trim() === '') {
+                showModal();
+            } else {
+                // Reemplazar el contenido del h2 con el nombre ingresado
+                document.querySelector('h2').textContent = name + ' 😊';
+                console.log(`Nombre detectado: ${name}`); // Registro opcional
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="regalo">
+        <div class="tapa">
+          <span></span>
+        </div>
+        <div class="promo">
+          <p>Feliz Navidad ♥</p>
+          <h2>Delcy 😊</h2>
+        </div>
+        <div class="caja">
+          <span></span>
+          <span></span>
+        </div>
+    </div>
+</body>
+</html>
